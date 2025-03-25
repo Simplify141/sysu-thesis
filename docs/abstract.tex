@@ -8,16 +8,16 @@
 %%
 
 \cabstract{
-    量化交易过程需要交易因子作为指示信号从而为交易决策提供依据。在现代高频交易场景下，交易因子大多表现为多分支机器学习模型的形式。
+    量化交易过程需要交易因子作为指示信号从而为交易决策提供依据。在部分高频交易场景下，交易因子大多表现为多分支机器学习模型的形式。
     高频量化交易对于低延时有严苛的要求，极低的延时是正确执行交易策略的基本条件。
     而在高频交易的关键路径中，因子模型的推理是交易延时的主要来源，因此提高因子模型推理效率成为降低延时的重要优化手段。
     然而当前广泛使用的开源模型推理框架多针对高并发场景下的推理服务进行优化，缺少针对高频交易中苛刻的低延时场景设计的优化方法。
-    为此，本文提出了一种新的多分支因子模型推理框架，通过模型推理流程解耦合设计、系统友好与硬件友好的优化方法和分支推理优化算法，显著提升了多分支因子模型的推理效率。
+    为此，本文提出了一种新的多分支因子模型推理框架，通过模型推理过程解耦合设计、系统友好与硬件友好的优化方法和分支推理优化算法，显著提升了多分支因子模型的推理效率。
 
     本文的工作具体包含推理框架的架构设计、系统友好的内存管理、硬件友好的系统配置与算子配置和分支推理优化算法四个方面。
     整体而言，我们将模型的推理过程划分为预处理和部署两个部分，其中可以通过动态配置指示框架为预处理和部署提供针对性的优化；
     其次，在预处理过程中，我们通过内存池，内存映射和内存锁定等方法预分配内存，减少运行过程中访存中断导致的延时；
-    在预处理过程中，框架实现了硬件友好的算子动态绑定，在运行过程中则可执行相关系统配置命令，提高算子的执行速度；
+    在预处理过程中，框架实现了硬件友好的算子调优，在运行过程中则可执行算子动态绑定，提高算子的执行速度；
     最后，本文引入了基于分支结构的缓存机制，通过动态配置缓存策略，有效提高推理效率。
     实验结果表明，该框架在高频交易场景下的相较开源推理框架具有优越的性能，为交易系统中的多分支因子模型推理提供了新的工具。
 
@@ -30,21 +30,22 @@
 
 \eabstract{
     % 英文摘要及关键词内容应与中文摘要及关键词内容相同。中英文摘要及其关键词各置一页内。
-    Quantitative trading relies on trading factors as indicative signals to guide decision-making. In modern high-frequency trading (HFT) scenarios, these factors are predominantly implemented as multi-branch machine learning models. Ultra-low latency is critical in HFT, as it forms the foundation for correctly executing trading strategies. Within the critical path of HFT, the inference latency of factor models constitutes a major contributor to overall trading delays, making the optimization of factor model inference efficiency a pivotal approach to reducing system latency. However, existing open-source model inference frameworks are primarily optimized for high-concurrency inference services and lack dedicated optimizations tailored to the stringent low-latency requirements of HFT.
-
-To address this challenge, this paper proposes a novel multi-branch factor model inference framework. Through decoupled design of model inference processes, system- and hardware-friendly optimization strategies, and branch-aware inference acceleration algorithms, the framework significantly improves the inference efficiency of multi-branch factor models.
-
-The contributions of this work encompass four key aspects:
-
-Architecture Design: The inference pipeline is divided into pre-processing and deployment phases, with dynamic configuration directives enabling phase-specific optimizations.
-
-System-Friendly Memory Management: Pre-allocation techniques including memory pools, memory mapping, and memory locking are implemented to minimize runtime memory access interruptions.
-
-Hardware-Aware Optimization: Hardware-friendly operator binding during pre-processing and runtime system reconfiguration commands enhance computational efficiency.
-
-Branch-Optimized Caching: A cache mechanism based on branch structures dynamically adjusts caching policies to accelerate inference.
-
-Experimental results demonstrate that the proposed framework outperforms existing open-source inference frameworks in HFT scenarios, providing an effective tool for multi-branch factor model inference in trading systems.
+    In quantitative trading, trading factors are essential signals for decision-making. 
+    In today’s high-frequency trading, these factors are often multi-branch machine learning models. 
+    Given the stringent low-latency requirements of high-frequency trading, minimizing latency is crucial for strategy execution. 
+    Factor model inference is a key contributor to trading latency, so enhancing its efficiency is vital.
+    
+    However, existing open-source inference frameworks are mostly optimized for high-concurrency scenarios, lacking optimization for the low-latency needs of high-frequency trading. 
+    To address this, a new multi-branch factor model inference framework is proposed. 
+    It features model inference decoupling, system and hardware-friendly optimizations, and branch-specific inference algorithms, significantly boosting inference efficiency.
+    
+    This work encompasses four aspects: framework architecture design, memory management, hardware-friendly configurations, and branch-specific inference optimization. 
+    The inference process is divided into preprocessing and deployment, with dynamic configuration for targeted optimization. 
+    In preprocessing, memory allocation methods like pooling and mapping are employed to reduce latency. 
+    The framework also implements operator dynamic binding and allows runtime configuration commands for faster execution. 
+    Finally, a cache mechanism based on branch structures is introduced, with dynamic cache strategy configuration to enhance efficiency.
+    
+    Experimental results show that this framework outperforms existing open-source frameworks in high-frequency trading scenarios, offering a valuable tool for multi-branch factor model inference in trading systems.
 }
 % 英文文关键词(每个关键词之间用,分开, 最后一个关键词不打标点符号。)
 \ekeywords{Machine Learning, High-Performance Computing, Low-Latency Trading System}
